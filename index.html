@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>曹丕 · 曹植研究资料库</title>
+    <meta
+      name="description"
+      content="曹丕曹植研究资料库：聚焦二人关系、作品、史料、专题研究与时间轴，兼顾学术解读与文史爱好者阅读。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <div class="brand-block">
+          <div class="brand-mark">魏</div>
+          <div>
+            <div class="brand-name">曹丕 · 曹植研究资料库</div>
+            <small>魏晋文史研究与作品解读</small>
+          </div>
+        </div>
+        <nav class="main-nav">
+          <a href="#home">首页</a>
+          <a href="#works">作品库</a>
+          <a href="#records">史料库</a>
+          <a href="#timeline">时间轴</a>
+          <a href="#topics">互涉专题</a>
+          <a href="#study">研究视角</a>
+          <a href="#references">参考</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">聚焦于“丕·植”之关系</div>
+            <h1>曹丕、曹植的文与史，交织于魏晋的气象之中</h1>
+            <p>
+              本资料库以“曹丕—曹植”关系为核心，梳理二人作品、史料记载、时代脉络与学术争议，<br />
+              兼顾古文原文、现代释义、文史爱好与专业研究的双重阅读入口。
+            </p>
+            <div class="hero-actions">
+              <a class="primary-btn" href="#works">进入作品库</a>
+              <a class="secondary-btn" href="#timeline">查看时间轴</a>
+            </div>
+            <ul class="hero-meta">
+              <li>作品：完整收录核心诗赋与文籍</li>
+              <li>史料：涵盖《三国志》《世说新语》等</li>
+              <li>专题：偏重兄弟互涉与关系研究</li>
+            </ul>
+          </div>
+
+          <div class="hero-panel">
+            <div class="panel-card">
+              <div class="small-label">资料库范围</div>
+              <div class="metrics-grid">
+                <div>
+                  <strong id="stat-works">0</strong>
+                  <span>作品条目</span>
+                </div>
+                <div>
+                  <strong id="stat-records">0</strong>
+                  <span>史料条目</span>
+                </div>
+                <div>
+                  <strong id="stat-topics">0</strong>
+                  <span>专题议题</span>
+                </div>
+                <div>
+                  <strong id="stat-sources">0</strong>
+                  <span>参考来源</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="summary band">
+        <div class="container summary-grid">
+          <article class="summary-card">
+            <span class="tag">研究重心</span>
+            <h3>兄弟关系研究</h3>
+            <p>
+              以“文与权、情与法、才与位”的张力，探讨曹丕与曹植在政治、文学和家族命运中的交错。
+            </p>
+          </article>
+          <article class="summary-card">
+            <span class="tag">文献整理</span>
+            <h3>古文原文与现代解读</h3>
+            <p>
+              每条作品皆兼具古文、释义、析论与出处提示，便于从文学阅读与学术研究两条线索入门。
+            </p>
+          </article>
+          <article class="summary-card">
+            <span class="tag">史学视野</span>
+            <h3>史书与文献互证</h3>
+            <p>
+              收录《三国志》《世说新语》等经典史籍及相关文献，凸显“文史互参”的资料库功能。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="works" class="section content-section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">作品库</span>
+              <h2>曹丕·曹植作品与解读</h2>
+            </div>
+            <div class="filter-bar" id="work-filters"></div>
+          </div>
+          <div id="works-list" class="works-grid"></div>
+        </div>
+      </section>
+
+      <section id="records" class="section alt-section">
+        <div class="container">
+          <div class="section-head narrow">
+            <div>
+              <span class="eyebrow">史料库</span>
+              <h2>关于二人的记载与史书</h2>
+            </div>
+          </div>
+          <div id="records-list" class="records-grid"></div>
+        </div>
+      </section>
+
+      <section id="timeline" class="section content-section">
+        <div class="container">
+          <div class="section-head narrow">
+            <div>
+              <span class="eyebrow">时间轴</span>
+              <h2>曹丕·曹植关系的时代脉络</h2>
+            </div>
+          </div>
+          <div class="timeline-wrap">
+            <div class="timeline-header">
+              <span>年代</span>
+              <span>事件</span>
+            </div>
+            <input id="timeline-slider" type="range" min="0" max="100" value="50" />
+            <div id="timeline-event" class="timeline-event"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="topics" class="section alt-section">
+        <div class="container">
+          <div class="section-head narrow">
+            <div>
+              <span class="eyebrow">互涉专题</span>
+              <h2>两人关系中的核心议题</h2>
+            </div>
+          </div>
+          <div id="topics-list" class="topic-grid"></div>
+        </div>
+      </section>
+
+      <section id="study" class="section content-section">
+        <div class="container">
+          <div class="section-head narrow">
+            <div>
+              <span class="eyebrow">研究视角</span>
+              <h2>中文研究与海外汉学比较</h2>
+            </div>
+          </div>
+          <div class="study-tabs" id="study-tabs">
+            <button class="tab-btn active" data-tab="zh">中文研究</button>
+            <button class="tab-btn" data-tab="overseas">海外汉学</button>
+          </div>
+          <div id="study-panel" class="study-panel"></div>
+        </div>
+      </section>
+
+      <section id="references" class="section alt-section">
+        <div class="container">
+          <div class="section-head narrow">
+            <div>
+              <span class="eyebrow">参考与链接</span>
+              <h2>参考文献与扩展资源</h2>
+            </div>
+          </div>
+          <div id="reference-list" class="reference-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="favorites-panel">
+      <div class="favorites-header">
+        <h3>收藏夹</h3>
+        <button id="clear-favorites" class="mini-btn">清空</button>
+      </div>
+      <ul id="favorites-list"></ul>
+    </aside>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

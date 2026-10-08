@@ -17,6 +17,7 @@
   --success: #667b5d;
   --tag: rgba(184, 139, 93, 0.12);
   --danger: #965c50;
+  --focus: rgba(90, 56, 32, 0.08);
 }
 
 html {
@@ -27,7 +28,7 @@ body {
   margin: 0;
   font-family: "Inter", "Noto Serif SC", serif;
   background:
-    linear-gradient(180deg, rgba(221, 204, 185, 0.5), rgba(245, 239, 230, 0.95)),
+    linear-gradient(180deg, rgba(221, 204, 185, 0.6), rgba(245, 239, 230, 0.95)),
     var(--bg);
   color: var(--ink);
 }
@@ -44,6 +45,13 @@ a {
 button,
 input {
   font: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
 }
 
 .container {
@@ -177,11 +185,12 @@ input {
 .secondary-btn,
 .mini-btn,
 .tab-btn,
-.favorite-btn {
+.favorite-btn,
+.filter-btn {
   border: none;
   border-radius: 999px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .primary-btn,
@@ -209,7 +218,8 @@ input {
 .secondary-btn:hover,
 .mini-btn:hover,
 .tab-btn:hover,
-.favorite-btn:hover {
+.favorite-btn:hover,
+.filter-btn:hover {
   transform: translateY(-1px);
 }
 
@@ -308,6 +318,26 @@ input {
   letter-spacing: -0.04em;
 }
 
+.search-box-wrap {
+  background: rgba(255,255,255,0.5);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 16px 18px;
+  box-shadow: 0 10px 24px rgba(63, 32, 18, 0.05);
+}
+
+#global-search {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+
+#global-search::placeholder {
+  color: var(--muted);
+}
+
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
@@ -319,8 +349,6 @@ input {
   background: rgba(255,255,255,0.4);
   color: var(--muted);
   padding: 10px 14px;
-  border-radius: 999px;
-  cursor: pointer;
 }
 
 .filter-btn.active {
@@ -338,7 +366,7 @@ input {
 }
 
 .works-grid {
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .record-card,
@@ -453,7 +481,7 @@ input {
 .records-grid,
 .topic-grid,
 .reference-list {
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .record-card,
@@ -635,6 +663,14 @@ input {
   background: transparent;
   color: var(--danger);
   cursor: pointer;
+}
+
+.empty-message {
+  padding: 18px 12px;
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  color: var(--muted);
+  background: rgba(255,255,255,0.25);
 }
 
 @media (max-width: 900px) {

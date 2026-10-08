@@ -15,6 +15,7 @@ const statWorks = document.getElementById('stat-works');
 const statRecords = document.getElementById('stat-records');
 const statTopics = document.getElementById('stat-topics');
 const statSources = document.getElementById('stat-sources');
+const globalSearch = document.getElementById('global-search');
 
 const filterLabels = ['全部', '曹丕', '曹植', '诗歌', '乐府', '论文'];
 
@@ -47,14 +48,73 @@ function renderFilters() {
   });
 }
 
-function renderWorks(filter = '全部') {
-  let filtered = works;
+function applySearch(query) {
+  const searchValue = query.trim().toLowerCase();
+  const activeFilter = document.querySelector('.filter-btn.active')?.dataset.filter || '全部';
 
-  if (filter === '曹丕') filtered = works.filter((item) => item.author === '曹丕');
-  if (filter === '曹植') filtered = works.filter((item) => item.author === '曹植');
-  if (filter === '诗歌') filtered = works.filter((item) => item.category === '诗歌');
-  if (filter === '乐府') filtered = works.filter((item) => item.category === '乐府');
-  if (filter === '论文') filtered = works.filter((item) => item.category === '论文');
+  let filtered = works;
+  if (activeFilter === '曹丕') filtered = works.filter((item) => item.author === '曹丕');
+  if (activeFilter === '曹植') filtered = works.filter((item) => item.author === '曹植');
+  if (activeFilter === '诗歌') filtered = works.filter((item) => item.category === '诗歌');
+  if (activeFilter === '乐府') filtered = works.filter((item) => item.category === '乐府');
+  if (activeFilter === '论文') filtered = works.filter((item) => item.category === '论文');
+
+  if (searchValue) {
+    filtered = filtered.filter((item) => {
+      const haystack = [
+        item.title,
+        item.author,
+        item.category,
+        item.tags.join(' '),
+        item.original,
+        item.translation,
+        item.commentary,
+        item.sources.join(' ')
+      ]
+        .join(' ')
+        .toLowerCase();
+      return haystack.includes(searchValue);
+    });
+  }
+
+  return filtered;
+}
+
+function renderWorks(filter = '全部') {
+  const active = filter || '全部';
+  const buttons = [...document.querySelectorAll('.filter-btn')];
+  buttons.forEach((btn) => btn.classList.toggle('active', btn.dataset.filter === active));
+
+  let filtered = works;
+  if (active === '曹丕') filtered = works.filter((item) => item.author === '曹丕');
+  if (active === '曹植') filtered = works.filter((item) => item.author === '曹植');
+  if (active === '诗歌') filtered = works.filter((item) => item.category === '诗歌');
+  if (active === '乐府') filtered = works.filter((item) => item.category === '乐府');
+  if (active === '论文') filtered = works.filter((item) => item.category === '论文');
+
+  const searchValue = globalSearch.value.trim().toLowerCase();
+  if (searchValue) {
+    filtered = filtered.filter((item) => {
+      const haystack = [
+        item.title,
+        item.author,
+        item.category,
+        item.tags.join(' '),
+        item.original,
+        item.translation,
+        item.commentary,
+        item.sources.join(' ')
+      ]
+        .join(' ')
+        .toLowerCase();
+      return haystack.includes(searchValue);
+    });
+  }
+
+  if (!filtered.length) {
+    worksList.innerHTML = '<div class="empty-message">未检索到符合条件的作品，试试修改关键词或更换筛选类别。</div>';
+    return;
+  }
 
   worksList.innerHTML = filtered
     .map(
@@ -104,7 +164,7 @@ function renderWorks(filter = '全部') {
       }
       saveFavorites();
       renderFavorites();
-      renderWorks(document.querySelector('.filter-btn.active')?.dataset.filter || '全部');
+      renderWorks(active);
     });
   });
 }
@@ -179,7 +239,7 @@ function renderFavorites() {
   const favoriteWorks = works.filter((item) => favorites.has(item.id));
 
   if (!favoriteWorks.length) {
-    favoritesList.innerHTML = '<li><span>暂无收藏</span></li>';
+    favoritesList.innerHTML = '<li><span class="empty-message">暂无收藏</span></li>';
     return;
   }
 
@@ -221,6 +281,11 @@ document.getElementById('clear-favorites').addEventListener('click', () => {
 });
 
 timelineSlider.addEventListener('input', renderTimeline);
+
+globalSearch.addEventListener('input', (event) => {
+  const activeFilter = document.querySelector('.filter-btn.active')?.dataset.filter || '全部';
+  renderWorks(activeFilter);
+});
 
 renderStats();
 renderFilters();
